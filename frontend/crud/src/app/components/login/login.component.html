@@ -1,14 +1,26 @@
-<div class="container" style="height: 100vh;">
 
-    <div class="d-flex justify-condent-center align-items-center">
 
-    <form class="" [formGroup]="loginform" (submit)="submit()">
-        <input class="new mt-3" type="email" placeholder="enter your email" formControlName="email"><br>
-        <input class="new mt-3" type="password" placeholder="enter your password" formControlName="password"><br>
-        <button [disabled]="loginform.invalid" class="btn btn-success">submit</button>
-        <span style="color: red;">{{message}}</span>
-     
-    </form>
+<div class="container" >
+    <div class="login-container">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title text-center">Login</h2>
+                <form id="login-form" class="" [formGroup]="loginform" (submit)="submit()">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" formControlName="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password"formControlName="password" name="password" required>
+                    </div>
+                    <button type="submit" [disabled]="loginform.invalid" class="btn btn-primary mt-3">Login</button>
+                    <span class="m-2" style="color: red;">{{message}}</span>
+
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
-</div>
+

@@ -1,22 +1,36 @@
 
-<div class="container">
-    
 
-    <h1>register</h1>
+<div class="container" >
+    <div class="register-form">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title text-center">register</h2>
+                <form id="login-form" class="" [formGroup]="registerform" (submit)="submit()">
+                    <div class="form-group">
+                        <label for="name">name</label>
+                        <input type="text" class="form-control" id="name" formControlName="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">phone</label>
+                        <input type="number" class="form-control" id="phone" formControlName="phone"  required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" formControlName="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password"formControlName="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label mt-3">add Your Photo</label>
+                        <input type="file" (change)="uploadImage($event.target)" formControlName="image" class="form-control" >
+                    </div>
+                    <button type="submit" [disabled]="registerform.invalid" class="btn btn-primary mt-3">Register</button>
+                    <span class="m-2" style="color: red;">{{message}}</span>
 
-    <div class="d-flex">
-
-        <form [formGroup]="registerform" (submit)="submit()">
-            <input class="new mt-3" placeholder="enter your name" type="text" formControlName="name"><br>
-            <input class="new mt-3" placeholder=" enter your phone" type="number" formControlName="phone"><br>
-            <input class="new mt-3" type="email" placeholder="enter your email" formControlName="email"><br>
-            <input class="new mt-3" type="password" placeholder="enter your password" formControlName="password"><br>
-            <input class="new mt-3" type="password" placeholder="conform your password" formControlName="password2"><br>
-            <button [disabled]="registerform.invalid" class="btn btn-success">submit</button>
-            <span style="color: red;">{{message}}</span>
-           </form>
-
+                </form>
+            </div>
+        </div>
     </div>
-
-   
 </div>

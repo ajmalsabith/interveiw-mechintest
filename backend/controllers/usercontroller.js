@@ -8,12 +8,13 @@ const register =async (req,res)=>{
     try {
 
         
+        const imageFile = req.file.filename
 
-        const name= req.body.name
-        const phone= req.body.phone
-        const email= req.body.email
-        const password= req.body.password
-        const password2= req.body.password2
+        const name = req.body.name
+        const phone = req.body.phone
+        const email = req.body.place
+        const password = req.body.qualification
+        
 
         if (password==password2) {
 
@@ -21,7 +22,8 @@ const register =async (req,res)=>{
                 name:name,
                 phone:phone,
                 email:email,
-                password:password2
+                password:password,
+                image:imageFile
             })
             
             const result = await newuser.save()
