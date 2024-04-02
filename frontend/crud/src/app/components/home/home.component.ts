@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -9,29 +9,24 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit{
 
-  constructor(private http:HttpClient,private router:Router){}
+  constructor(private activaterout:ActivatedRoute,private http:HttpClient){}
 
-  userdata!:any
-  message=''
+  id=''
+  userdata:any
   ngOnInit(): void {
-    this.http.get('http://localhost:4000/home').subscribe((res:any)=>{
-      this.userdata=res.data
-      console.log(res.data);
+    this.activaterout.params.subscribe(params => {
+      this.id = params['id'];
+      alert(this.id)      
+    });
+
+
+    this.http.post('http://localhost:4000/getdata',{id:this.id}).subscribe((res:any)=>{
+      this.userdata= res.data
+    },(err)=>{
+      console.log(err.error.message);
       
-    },(err)=>{
-      this.message=err.error.message
     })
-  }
 
-
-  searchtext=''
-  deletefu(id:any){
-    this.http.delete('http://localhost:4000/delete/'+id).subscribe((res:any)=>{
-      this.message=res.message
-      this.ngOnInit()
-    },(err)=>{
-      this.message=err.error.message
-    })
   }
 
 }

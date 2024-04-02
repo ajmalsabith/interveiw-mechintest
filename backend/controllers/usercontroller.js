@@ -1,8 +1,5 @@
 
-const jwt= require('jsonwebtoken')
 const user= require('../Models/userModel')
-const { parseArgs } = require('util')
-const { emit } = require('process')
 
 const register =async (req,res)=>{
     try {
@@ -12,12 +9,11 @@ const register =async (req,res)=>{
 
         const name = req.body.name
         const phone = req.body.phone
-        const email = req.body.place
-        const password = req.body.qualification
+        const email = req.body.email
+        const password = req.body.password
         
 
-        if (password==password2) {
-
+        if (password|| email) {
             const newuser= new user({
                 name:name,
                 phone:phone,
@@ -28,14 +24,17 @@ const register =async (req,res)=>{
             
             const result = await newuser.save()
     
-            
+            console.log(result);
     
     
             if (result) {
-                res.send({
-                  message:'register success'
+                console.log('yes ok');
+                res.status(200).send({
+                  message:'register success',id:result._id
                 })
             }else{
+                console.log('yes not il');
+
                 res.status(400).send({
                     message:"somthing wrong..!"
                 })
@@ -57,25 +56,6 @@ const register =async (req,res)=>{
     }
 }
 
-const home=async(req,res)=>{
-
-    try {
-
-        const userdata= await user.find({})
-        console.log(userdata);
-        if (userdata) {
-            res.send({
-                data:userdata
-            })
-        }else{
-            res.status(400).send({
-                message:'somthing wrong..!'
-            })
-        }
-    } catch (error) {
-        console.log(err.message);
-    }
-}
 
 const login = async(req,res)=>{
     try {
@@ -87,7 +67,7 @@ const login = async(req,res)=>{
         if (userdata) {
             if (userdata.password==password) {
                res.send({
-                message:'success'
+                message:'success',id:userdata._id
                })
             }else{
                 res.status(400).send({
@@ -107,26 +87,23 @@ const login = async(req,res)=>{
 }
 
 
-const deletefu = async(req,res)=>{
+const home = async(req,res)=>{
     try {
+        console.log('yes');
+       const userid= req.body.id
+       console.log(userid);
+      const userdata= await user.find({_id:userid})
 
-        const id= await req.params.id
+      if(userdata){
+        res.status(200).send({
+            data:userdata
+        })
+      }else{
+        res.status(400).send({
+            message:'somthing wrong...'
+        })
+      }
         
-        console.log(id+'delteid');
-        const userdata= await user.deleteOne({_id:id})
-        if (userdata) {
-           
-               res.send({
-                message:'success'
-               })
-           
-            
-        }else{
-            res.status(400).send({
-                message:' wrong..!'
-            })
-        }
-       
     } catch (error) {
         console.log(error.message);
     }
@@ -134,9 +111,11 @@ const deletefu = async(req,res)=>{
 
 
 
+
+
 module.exports={
     register,
-    home,
     login,
-    deletefu
+    home
+ 
 }

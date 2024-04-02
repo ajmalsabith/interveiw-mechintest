@@ -10,7 +10,7 @@ app.use(cors({
     origin:['http://localhost:4200']
 }))
 
-const userroute= require('../backend/router/userRouter')
+const userroute= require('../backend/router/fullRouter')
 
 app.use('',userroute)
 

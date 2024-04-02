@@ -27,7 +27,7 @@ export class RegisterComponent implements OnInit {
       name:new FormControl('',[Validators.required]),
       phone:new FormControl('',[Validators.required]),
       email:new FormControl('',[Validators.required]),
-      password2:new FormControl('',Validators.required)
+      password:new FormControl('',Validators.required)
     })
     console.log(this.registerform);
     
@@ -52,7 +52,7 @@ export class RegisterComponent implements OnInit {
     
     this.http.post('http://localhost:4000/register',formdata).subscribe((res:any)=>{
        this.message= res.message
-      this.router.navigate(['login'])
+      this.router.navigate(['home'],{queryParams:{id:res.id}})
     },(err)=>{
        this.message=err.message
       
